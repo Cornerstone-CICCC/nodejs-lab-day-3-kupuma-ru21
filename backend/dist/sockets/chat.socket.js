@@ -30,6 +30,32 @@ const setupChatSocket = (io) => {
                 console.error("Error saving chat:", error);
             }
         }));
+        // Listen to 'joinRoom' event
+        socket.on("joinRoom", (data) => __awaiter(void 0, void 0, void 0, function* () {
+            // Join room
+            console.log(`User joined ${data.room}`);
+            socket.join(data.room);
+        }));
+        socket.on("leaveRoom", (data) => __awaiter(void 0, void 0, void 0, function* () {
+            // Join room
+            console.log(`User leave ${data.room}`);
+            socket.leave(data.room);
+        }));
+        socket.on("sendMessageByRoom", (data) => __awaiter(void 0, void 0, void 0, function* () {
+            try {
+                // Save message to MongoDB
+                const chat = new chat_model_1.Chat(Object.assign({}, data));
+                yield chat.save();
+                // Broadcast the chat object to all connected clients via the newMessage event
+                io.emit("newMessage", chat);
+                io.to(data.room).emit("newMessageByRoom", chat);
+                // For room-based broadcast
+                // io.to(data.room).emit('newMessage', chat)
+            }
+            catch (error) {
+                console.error("Error saving chat:", error);
+            }
+        }));
         // On disconnect
         socket.on("disconnect", () => {
             console.log(`User disconnected: ${socket.id}`);

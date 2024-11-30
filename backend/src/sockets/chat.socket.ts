@@ -25,6 +25,36 @@ const setupChatSocket = (io: Server) => {
       }
     });
 
+    // Listen to 'joinRoom' event
+    socket.on("joinRoom", async (data) => {
+      // Join room
+      console.log(`User joined ${data.room}`);
+      socket.join(data.room);
+    });
+
+    socket.on("leaveRoom", async (data) => {
+      // Join room
+      console.log(`User leave ${data.room}`);
+      socket.leave(data.room);
+    });
+
+    socket.on("sendMessageByRoom", async (data) => {
+      try {
+        // Save message to MongoDB
+        const chat = new Chat({ ...data });
+        await chat.save();
+
+        // Broadcast the chat object to all connected clients via the newMessage event
+        io.emit("newMessage", chat);
+        io.to(data.room).emit("newMessageByRoom", chat);
+
+        // For room-based broadcast
+        // io.to(data.room).emit('newMessage', chat)
+      } catch (error) {
+        console.error("Error saving chat:", error);
+      }
+    });
+
     // On disconnect
     socket.on("disconnect", () => {
       console.log(`User disconnected: ${socket.id}`);
