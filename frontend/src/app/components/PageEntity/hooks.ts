@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { socket } from "../../../socket";
 import { Chat } from "@/app/types";
 
-export function useHooks({ prevMessages }: { prevMessages: Chat[] }) {
+export function useHooks({ prevChats }: { prevChats: Chat[] }) {
   // NOTE: show Socket connection status
   const [isConnected, setIsConnected] = useState(false);
   const [transport, setTransport] = useState("N/A");
@@ -51,7 +51,7 @@ export function useHooks({ prevMessages }: { prevMessages: Chat[] }) {
   };
 
   // NOTE: get chat messages from server
-  const [messages, setMessages] = useState<Chat[]>(prevMessages);
+  const [messages, setMessages] = useState<Chat[]>(prevChats);
   useEffect(() => {
     socket.on("newMessage", (data) => {
       console.log("data:", data);

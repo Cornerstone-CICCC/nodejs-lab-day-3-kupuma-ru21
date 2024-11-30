@@ -15,9 +15,9 @@ import {
 import { useHooks } from "./hooks";
 import { Chat } from "@/app/types";
 
-export function PageEntity({ prevMessages }: { prevMessages: Chat[] }) {
+export function PageEntity({ prevChats }: { prevChats: Chat[] }) {
   const { usernameRef, messageRef, sendMessage, messages } = useHooks({
-    prevMessages,
+    prevChats,
   });
 
   return (

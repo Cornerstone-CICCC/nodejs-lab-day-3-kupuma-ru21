@@ -2,7 +2,7 @@ import { PageEntity } from "./components/PageEntity";
 import { Chat } from "./types";
 
 export default async function Page() {
-  const prevMessages = await (async () => {
+  const prevChats = await (async () => {
     try {
       const response = await fetch("http://localhost:8080/api/chat");
       if (!response.ok) {
@@ -21,5 +21,5 @@ export default async function Page() {
     }
   })();
 
-  return <PageEntity prevMessages={prevMessages} />;
+  return <PageEntity prevChats={prevChats} />;
 }
