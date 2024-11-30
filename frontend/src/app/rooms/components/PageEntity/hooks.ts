@@ -1,13 +1,13 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { socket } from "@/socket";
-import { ChatMessage } from "@/app/types";
+import { Chat } from "@/app/types";
 import { useRouter } from "next/navigation";
 
 export function useHooks({
   prevChats,
   defaultRoom,
 }: {
-  prevChats: ChatMessage[];
+  prevChats: Chat[];
   defaultRoom: string;
 }) {
   // NOTE: show Socket connection status
@@ -70,7 +70,7 @@ export function useHooks({
   };
 
   // NOTE: get chat messages from server
-  const [messages, setMessages] = useState<ChatMessage[]>(prevChats);
+  const [messages, setMessages] = useState<Chat[]>(prevChats);
   useEffect(() => {
     socket.on("newMessageByRoom", (data) => {
       console.log("data:", data);

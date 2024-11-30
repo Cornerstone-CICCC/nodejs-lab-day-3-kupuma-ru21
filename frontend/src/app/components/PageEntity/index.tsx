@@ -13,9 +13,9 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useHooks } from "./hooks";
-import { ChatMessage } from "@/app/types";
+import { Chat } from "@/app/types";
 
-export function PageEntity({ prevMessages }: { prevMessages: ChatMessage[] }) {
+export function PageEntity({ prevMessages }: { prevMessages: Chat[] }) {
   const { usernameRef, messageRef, sendMessage, messages } = useHooks({
     prevMessages,
   });

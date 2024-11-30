@@ -1,5 +1,5 @@
 import { PageEntity } from "./components/PageEntity";
-import { ChatMessage } from "./types";
+import { Chat } from "./types";
 
 export default async function Page() {
   const prevMessages = await (async () => {
@@ -9,7 +9,7 @@ export default async function Page() {
         throw new Error(`Response status: ${response.status}`);
       }
 
-      const json: ChatMessage[] = await response.json();
+      const json: Chat[] = await response.json();
 
       return json;
     } catch (error) {

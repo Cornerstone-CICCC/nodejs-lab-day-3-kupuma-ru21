@@ -14,13 +14,13 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useHooks } from "./hooks";
-import { ChatMessage } from "@/app/types";
+import { Chat } from "@/app/types";
 
 export function PageEntity({
   prevChats,
   room,
 }: {
-  prevChats: ChatMessage[];
+  prevChats: Chat[];
   room: string;
 }) {
   const {
